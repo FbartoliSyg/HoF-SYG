@@ -1,0 +1,30 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: HallOfFame
+    network: mumbai
+    source:
+      address: "0xc8dE2B6fE50d27840e95c6dc4031f7c348EdBBd3"
+      abi: HallOfFame
+      startBlock: 27892199
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - ApprovalForAll
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
+        - TransferBatch
+        - TransferSingle
+        - URI
+      abis:
+        - name: HallOfFame
+          file: ./abis/HallOfFame.json
+      eventHandlers:
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleTransferSingle
+      file: ./src/hall-of-fame.ts
